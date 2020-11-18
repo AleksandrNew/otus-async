@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Common;
 
@@ -9,6 +10,9 @@ namespace Sample4
     {
         static async Task Main(string[] args)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
             Coffee cup = PourCoffee();
             Console.WriteLine("coffee is ready");
 
@@ -35,7 +39,8 @@ namespace Sample4
                 breakfastTasks.Remove(finishedTask);
             }
 
-            Console.WriteLine("Breakfast is ready!");
+            sw.Stop();
+            Console.WriteLine($"Breakfast is ready for {sw.Elapsed.Seconds} seconds");
         }
 
 
