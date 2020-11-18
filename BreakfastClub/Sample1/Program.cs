@@ -28,7 +28,7 @@ namespace Sample1
         private static void ApplyJam(Toast toast) =>
             Console.WriteLine("Putting jam on the toast");
 
-        private static void ApplyButter(Toast toast) =>
+        private static void  ApplyButter(Toast toast) =>
             Console.WriteLine("Putting butter on the toast");
 
         private static Toast ToastBread(int slices)
@@ -38,7 +38,7 @@ namespace Sample1
                 Console.WriteLine("Putting a slice of bread in the toaster");
             }
             Console.WriteLine("Start toasting...");
-            Task.Delay(3000).Wait();
+            Task.Delay(5000).Wait();
             Console.WriteLine("Remove toast from toaster");
 
             return new Toast();
@@ -47,14 +47,14 @@ namespace Sample1
         private static Bacon FryBacon(int slices)
         {
             Console.WriteLine($"putting {slices} slices of bacon in the pan");
-            Console.WriteLine("cooking first side of bacon...");
-            Task.Delay(3000).Wait();
+            Console.WriteLine($"cooking {slices} slices of bacon...");
+            Task.Delay(5000).Wait();
             for (int slice = 0; slice < slices; slice++)
             {
                 Console.WriteLine("flipping a slice of bacon");
+                Task.Delay(2000).Wait();
             }
-            Console.WriteLine("cooking the second side of bacon...");
-            Task.Delay(3000).Wait();
+
             Console.WriteLine("Put bacon on plate");
 
             return new Bacon();
@@ -63,10 +63,10 @@ namespace Sample1
         private static Egg FryEggs(int howMany)
         {
             Console.WriteLine("Warming the egg pan...");
-            Task.Delay(3000).Wait();
+            Task.Delay(5000).Wait();
             Console.WriteLine($"cracking {howMany} eggs");
             Console.WriteLine("cooking the eggs ...");
-            Task.Delay(3000).Wait();
+            Task.Delay(5000).Wait();
             Console.WriteLine("Put eggs on plate");
 
             return new Egg();
