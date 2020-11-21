@@ -11,25 +11,27 @@ namespace Sample3
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
 
             Coffee cup = PourCoffee();
-            Console.WriteLine("coffee is ready");
+            Console.WriteLine("Кофе готов");
 
             var eggsTask = FryEggsAsync(2);
             var baconTask = FryBaconAsync(3);
             var toastTask = MakeToastWithButterAndJamAsync(2);
 
             var eggs = await eggsTask;
-            Console.WriteLine("eggs are ready");
+            Console.WriteLine("Яица готовы");
 
             var bacon = await baconTask;
-            Console.WriteLine("bacon is ready");
+            Console.WriteLine("Бекон готов");
 
             var toast = await toastTask;
-            Console.WriteLine("toast is ready");
+            Console.WriteLine("Тосты готовы");
             
             sw.Stop();
-            Console.WriteLine($"Breakfast is ready for {sw.Elapsed.Seconds} seconds");
+            Console.WriteLine($"Завтрак готов за {sw.Elapsed.Seconds} минут");
         }
 
         static async Task<Toast> MakeToastWithButterAndJamAsync(int number)
@@ -42,55 +44,55 @@ namespace Sample3
         }
 
         private static void ApplyJam(Toast toast) =>
-            Console.WriteLine("Putting jam on the toast");
+            Console.WriteLine("Намазываем джем на тост");
 
         private static void ApplyButter(Toast toast) =>
-            Console.WriteLine("Putting butter on the toast");
+            Console.WriteLine("Намазываем масло на тост");
 
         private static async Task<Toast> ToastBreadAsync(int slices)
         {
             for (int slice = 0; slice < slices; slice++)
             {
-                Console.WriteLine("Putting a slice of bread in the toaster");
+                Console.WriteLine("Помещаем хлеб в тостер");
             }
-            Console.WriteLine("Start toasting...");
+            Console.WriteLine("Включаем тостер...");
             await Task.Delay(5000);
-            Console.WriteLine("Remove toast from toaster");
+            Console.WriteLine("Вынимаем тосты из тостера");
 
             return new Toast();
         }
 
         private static async Task<Bacon> FryBaconAsync(int slices)
         {
-            Console.WriteLine($"putting {slices} slices of bacon in the pan");
-            Console.WriteLine($"cooking {slices} slices of bacon...");
+            Console.WriteLine($"Кладем {slices} кусосков бекона на сковороду");
+            Console.WriteLine($"Жарим {slices} кусосков бекона...");
             await Task.Delay(5000);
             for (int slice = 0; slice < slices; slice++)
             {
-                Console.WriteLine("flipping a slice of bacon");
+                Console.WriteLine("Переворачиваем кусок бекона");
                 await Task.Delay(2000);
             }
 
-            Console.WriteLine("Put bacon on plate");
+            Console.WriteLine("Накладываем бекон на тарелку");
 
             return new Bacon();
         }
 
         private static async Task<Egg> FryEggsAsync(int howMany)
         {
-            Console.WriteLine("Warming the egg pan...");
+            Console.WriteLine("Разогреваем сковороду...");
             await Task.Delay(5000);
-            Console.WriteLine($"cracking {howMany} eggs");
-            Console.WriteLine("cooking the eggs ...");
+            Console.WriteLine($"Разбиваем {howMany} яиц");
+            Console.WriteLine("Жарим яица...");
             await Task.Delay(5000);
-            Console.WriteLine("Put eggs on plate");
+            Console.WriteLine("Накладываем яица на тарелку");
 
             return new Egg();
         }
 
         private static Coffee PourCoffee()
         {
-            Console.WriteLine("Pouring coffee");
+            Console.WriteLine("Наливаем кофе");
             return new Coffee();
         }
     }

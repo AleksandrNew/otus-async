@@ -11,80 +11,78 @@ namespace Sample1
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
 
             Coffee cup = PourCoffee();
-            Console.WriteLine("coffee is ready");
+            Console.WriteLine("Кофе готов");
 
             Egg eggs = FryEggs(2);
-            Console.WriteLine("eggs are ready");
+            Console.WriteLine("Яица готовы");
 
             Bacon bacon = FryBacon(3);
-            Console.WriteLine("bacon is ready");
+            Console.WriteLine("Бекон готов");
 
             Toast toast = ToastBread(2);
             ApplyButter(toast);
             ApplyJam(toast);
-            Console.WriteLine("toast is ready");
+            Console.WriteLine("Тосты готовы");
 
             sw.Stop();
-            Console.WriteLine($"Breakfast is ready for {sw.Elapsed.Seconds} seconds");
+            Console.WriteLine($"Завтрак готов за {sw.Elapsed.Seconds} минут");
         }
 
         private static void ApplyJam(Toast toast) =>
-            Console.WriteLine("Putting jam on the toast");
+            Console.WriteLine("Намазываем джем на тост");
 
         private static void  ApplyButter(Toast toast) =>
-            Console.WriteLine("Putting butter on the toast");
+            Console.WriteLine("Намазываем масло на тост");
 
         private static Toast ToastBread(int slices)
         {
             for (int slice = 0; slice < slices; slice++)
             {
-                Console.WriteLine("Putting a slice of bread in the toaster");
+                Console.WriteLine("Помещаем хлеб в тостер");
             }
-            Console.WriteLine("Start toasting...");
+            Console.WriteLine("Включаем тостер...");
             Task.Delay(5000).Wait();
-            Console.WriteLine("Remove toast from toaster");
+            Console.WriteLine("Вынимаем тосты из тостера");
 
             return new Toast();
         }
 
         private static Bacon FryBacon(int slices)
         {
-            Console.WriteLine($"putting {slices} slices of bacon in the pan");
-            Console.WriteLine($"cooking {slices} slices of bacon...");
+            Console.WriteLine($"Кладем {slices} кусосков бекона на сковороду");
+            Console.WriteLine($"Жарим {slices} кусосков бекона...");
             Task.Delay(5000).Wait();
             for (int slice = 0; slice < slices; slice++)
             {
-                Console.WriteLine("flipping a slice of bacon");
+                Console.WriteLine("Переворачиваем кусок бекона");
                 Task.Delay(2000).Wait();
             }
 
-            Console.WriteLine("Put bacon on plate");
+            Console.WriteLine("Накладываем бекон на тарелку");
 
             return new Bacon();
         }
 
         private static Egg FryEggs(int howMany)
         {
-            Console.WriteLine("Warming the egg pan...");
+            Console.WriteLine("Разогреваем сковороду...");
             Task.Delay(5000).Wait();
-            Console.WriteLine($"cracking {howMany} eggs");
-            Console.WriteLine("cooking the eggs ...");
+            Console.WriteLine($"Разбиваем {howMany} яиц");
+            Console.WriteLine("Жарим яица...");
             Task.Delay(5000).Wait();
-            Console.WriteLine("Put eggs on plate");
+            Console.WriteLine("Накладываем яица на тарелку");
 
             return new Egg();
         }
 
         private static Coffee PourCoffee()
         {
-            Console.WriteLine("Pouring coffee");
+            Console.WriteLine("Наливаем кофе");
             return new Coffee();
         }
-    }
-
-    internal class Coffee
-    {
     }
 }
