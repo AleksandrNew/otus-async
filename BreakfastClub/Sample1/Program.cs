@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Common;
@@ -8,67 +7,59 @@ namespace Sample1
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            await foreach (var item in DoSometingAsync())
-            {
-                Console.WriteLine(item);
-            }
 
-            sw.Stop();
-        }
+            Coffee cup = PourCoffee();
+            Console.WriteLine("Кофе готов");
 
-        private static async IAsyncEnumerable<int> DoSometingAsync()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                await Task.Delay(2000);
-                yield return i;
-            }
-        }
+            Egg eggs = FryEggs(2);
+            Console.WriteLine("Яица готовы");
 
-        private static async Task<Toast> MakeToastWithButterAndJamAsync(int number)
-        {
-            Toast toast = await ToastBreadAsync(number);
+            Bacon bacon = FryBacon(3);
+            Console.WriteLine("Бекон готов");
+
+            Toast toast = ToastBread(2);
             ApplyButter(toast);
             ApplyJam(toast);
+            Console.WriteLine("Тосты готовы");
 
-            return toast;
+            sw.Stop();
+            Console.WriteLine($"Завтрак готов за {sw.Elapsed.Seconds} минут");
         }
+
         private static void ApplyJam(Toast toast) =>
             Console.WriteLine("Намазываем джем на тост");
 
         private static void  ApplyButter(Toast toast) =>
             Console.WriteLine("Намазываем масло на тост");
 
-        private static async Task<Toast> ToastBreadAsync(int slices)
+        private static Toast ToastBread(int slices)
         {
-            throw new Exception("тостер сломался");
             for (int slice = 0; slice < slices; slice++)
             {
                 Console.WriteLine("Помещаем хлеб в тостер");
             }
             Console.WriteLine("Включаем тостер...");
-            await Task.Delay(5000);
+            Task.Delay(5000).Wait();
             Console.WriteLine("Вынимаем тосты из тостера");
 
             return new Toast();
         }
 
-        private static async Task<Bacon> FryBaconAsync(int slices)
+        private static Bacon FryBacon(int slices)
         {
-            throw new Exception("кончился бекон");
             Console.WriteLine($"Кладем {slices} кусосков бекона на сковороду");
             Console.WriteLine($"Жарим {slices} кусосков бекона...");
-            await Task.Delay(5000);
+            Task.Delay(5000).Wait();
             for (int slice = 0; slice < slices; slice++)
             {
                 Console.WriteLine("Переворачиваем кусок бекона");
-                await Task.Delay(2000);
+                Task.Delay(2000).Wait();
             }
 
             Console.WriteLine("Накладываем бекон на тарелку");
@@ -76,14 +67,13 @@ namespace Sample1
             return new Bacon();
         }
 
-        private static async Task<Egg> FryEggsAsync(int howMany)
+        private static Egg FryEggs(int howMany)
         {
-            throw new Exception("не сковороды");
             Console.WriteLine("Разогреваем сковороду...");
-            await Task.Delay(5000);
+            Task.Delay(5000).Wait();
             Console.WriteLine($"Разбиваем {howMany} яиц");
             Console.WriteLine("Жарим яица...");
-            await Task.Delay(5000);
+            Task.Delay(5000).Wait();
             Console.WriteLine("Накладываем яица на тарелку");
 
             return new Egg();
