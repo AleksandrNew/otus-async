@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,8 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationToken _cancellationToken;
         public MainWindow()
         {
             InitializeComponent();
@@ -39,26 +42,34 @@ namespace WpfApp
             Application.Current.Shutdown();
         }
 
-        private void LoadData_OnClick(object sender, RoutedEventArgs e)
+        private async void LoadData_OnClick(object sender, RoutedEventArgs e)
         {
-            GetData();
+            _cancellationTokenSource = new CancellationTokenSource();
+            _cancellationToken = _cancellationTokenSource.Token;
+            await GetDataAsync(_cancellationToken);
         }
 
-        private void GetData()
+        private async Task GetDataAsync(CancellationToken cancellationToken)
         {
             using (StreamReader streamReader = new StreamReader(FileTextBox.Text))
             {
                 while (!streamReader.EndOfStream)
                 {
                     TextBox.AppendText((streamReader.ReadLine() ?? string.Empty) + Environment.NewLine);
-                    Task.Delay(1000).Wait();
+                    await Task.Delay(1000);
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
                 }
             }
         }
 
+
         private void Cancel_OnClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            _cancellationTokenSource.Token.Register(() => TextBox.AppendText("operation is cancelled"));
+            _cancellationTokenSource.Cancel();
         }
     }
 }
